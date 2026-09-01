@@ -4239,8 +4239,9 @@ class IPCHandlers {
       return { success: true };
     });
 
-    ipcMain.handle("get-hotkey-mode-info", async (_event, requestedHotkey) => {
+    ipcMain.handle("get-hotkey-mode-info", async (_event, requestedHotkey, requestedSlot) => {
       const hotkeyManager = this.windowManager.hotkeyManager;
+      const slotName = typeof requestedSlot === "string" && requestedSlot ? requestedSlot : "dictation";
       const hotkey =
         typeof requestedHotkey === "string" && requestedHotkey.trim()
           ? requestedHotkey.split(",")[0].trim()
@@ -4249,11 +4250,9 @@ class IPCHandlers {
       const supportsPushToTalk =
         process.platform === "linux"
           ? isUsingNativeShortcut
-            ? hotkeyManager.supportsPushToTalk(hotkey)
+            ? hotkeyManager.supportsPushToTalk(hotkey, slotName)
             : this.linuxKeyManager?.isAvailable?.() === true
-          : process.platform === "darwin"
-            ? hotkeyManager.supportsPushToTalk(hotkey)
-            : !isUsingNativeShortcut;
+          : hotkeyManager.supportsPushToTalk(hotkey, slotName);
 
       return {
         isUsingGnome: this.windowManager.isUsingGnomeHotkeys(),
@@ -5081,6 +5080,10 @@ class IPCHandlers {
 
     ipcMain.handle("save-activation-mode", async (event, mode) => {
       return this.environmentManager.saveActivationMode(mode);
+    });
+
+    ipcMain.handle("get-slot-activation-modes", async () => {
+      return this.environmentManager.getSlotActivationModes();
     });
 
     ipcMain.handle("get-ui-language", async () => {
