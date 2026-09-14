@@ -48,11 +48,16 @@ export function useScreenRecordingPermission() {
     }
   }, []);
 
+  const openSettings = useCallback(async () => {
+    await window.electronAPI?.openScreenRecordingSettings?.();
+  }, []);
+
   return {
     granted: access?.granted ?? false,
     supported: access?.supported ?? true,
     needsRelaunch: access?.needsRelaunch ?? false,
     request,
+    openSettings,
     isMacOS,
   };
 }
