@@ -14,6 +14,8 @@ const MEETING_URL_RULES = [
   { hostname: "teams.live.com", pathnamePattern: /^\/meet\/[^/]+/i },
   { hostname: "webex.com", allowSubdomains: true, pathnamePattern: /^\/[^/]+/ },
   { hostname: "chime.aws", pathnamePattern: /^\/[^/]+/ },
+  { hostname: "whereby.com", allowSubdomains: true, pathnamePattern: /^\/[^/]+/ },
+  { hostname: "meet.jit.si", pathnamePattern: /^\/[^/]+/ },
 ];
 
 function isAllowedHostname(candidateHostname, allowedHostname, allowSubdomains) {
