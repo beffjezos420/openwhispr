@@ -16,6 +16,7 @@ const MEETING_URL_RULES = [
   { hostname: "chime.aws", pathnamePattern: /^\/[^/]+/ },
   { hostname: "whereby.com", allowSubdomains: true, pathnamePattern: /^\/[^/]+/ },
   { hostname: "meet.jit.si", pathnamePattern: /^\/[^/]+/ },
+  { hostname: "goto.com", allowSubdomains: true, pathnamePattern: /^\/meeting\/[^/]+/ },
 ];
 
 function isAllowedHostname(candidateHostname, allowedHostname, allowSubdomains) {
