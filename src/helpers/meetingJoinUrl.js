@@ -26,7 +26,7 @@ function isAllowedHostname(candidateHostname, allowedHostname, allowSubdomains) 
   );
 }
 
-function isMeetingUrl(value) {
+export function isMeetingUrl(value) {
   try {
     const url = new URL(value);
     return MEETING_URL_RULES.some(
